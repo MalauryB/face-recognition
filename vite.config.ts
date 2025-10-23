@@ -10,4 +10,5 @@ export default defineConfig({
       '@': path.resolve(__dirname, './src'),
     },
   },
+  base: process.env.GITHUB_PAGES ? '/face-liveness-check/' : '/',
 })
