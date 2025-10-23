@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from "react"
 import { Camera, Download, CheckCircle2, Circle } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { HeadAvatar } from "./head-avatar"
+import { useFaceDetection } from "@/hooks/use-face-detection"
 
 type Pose = "left" | "center" | "right"
 type CaptureStatus = "idle" | "active" | "capturing" | "completed"
@@ -24,30 +25,50 @@ export default function LivenessCheck() {
   const [captures, setCaptures] = useState<Capture[]>([])
   const [progress, setProgress] = useState(0)
   const [showFlash, setShowFlash] = useState(false)
+  const [detectionStableCount, setDetectionStableCount] = useState(0)
   const videoRef = useRef<HTMLVideoElement>(null)
   const canvasRef = useRef<HTMLCanvasElement>(null)
+
+  const { isReady, headOrientation, startCamera, stopCamera } = useFaceDetection()
 
   const currentPose = POSES[currentPoseIndex]
   const isCompleted = captures.length === 3
 
-  // Simulate camera initialization
+  // Start camera when active
   useEffect(() => {
-    if (status === "active" && videoRef.current) {
-      // In a real implementation, you would access the user's camera here
-      // navigator.mediaDevices.getUserMedia({ video: { facingMode: 'user' } })
+    if (status === "active" && videoRef.current && isReady) {
+      startCamera(videoRef.current).catch((error) => {
+        console.error("Failed to start camera:", error)
+        setStatus("idle")
+      })
     }
-  }, [status])
 
-  // Simulate automatic capture progression
+    return () => {
+      if (status !== "active") {
+        stopCamera()
+      }
+    }
+  }, [status, isReady, startCamera, stopCamera])
+
+  // Detect pose and auto-capture
   useEffect(() => {
-    if (status === "active" && !isCompleted) {
-      const timer = setTimeout(() => {
-        capturePhoto()
-      }, 3000) // Auto-capture after 3 seconds per pose
+    if (status === "active" && !isCompleted && headOrientation !== 'none') {
+      const targetPose = currentPose.id
 
-      return () => clearTimeout(timer)
+      // Check if head orientation matches target pose
+      if (headOrientation === targetPose) {
+        setDetectionStableCount(prev => prev + 1)
+
+        // Capture after 30 frames (~1 second at 30fps) of stable detection
+        if (detectionStableCount >= 30) {
+          capturePhoto()
+          setDetectionStableCount(0)
+        }
+      } else {
+        setDetectionStableCount(0)
+      }
     }
-  }, [status, currentPoseIndex, isCompleted])
+  }, [status, isCompleted, headOrientation, currentPose.id, detectionStableCount])
 
   // Update progress
   useEffect(() => {
@@ -65,26 +86,21 @@ export default function LivenessCheck() {
     setStatus("capturing")
     setShowFlash(true)
 
-    // Simulate photo capture
     setTimeout(() => {
       const canvas = canvasRef.current
-      if (canvas) {
+      const video = videoRef.current
+
+      if (canvas && video) {
+        // Set canvas size to match video
+        canvas.width = video.videoWidth
+        canvas.height = video.videoHeight
+
         const ctx = canvas.getContext("2d")
         if (ctx) {
-          // Create a placeholder image with gradient
-          const gradient = ctx.createLinearGradient(0, 0, canvas.width, canvas.height)
-          gradient.addColorStop(0, "#1e293b")
-          gradient.addColorStop(1, "#334155")
-          ctx.fillStyle = gradient
-          ctx.fillRect(0, 0, canvas.width, canvas.height)
+          // Draw video frame to canvas
+          ctx.drawImage(video, 0, 0, canvas.width, canvas.height)
 
-          // Add text indicating the pose
-          ctx.fillStyle = "#ffffff"
-          ctx.font = "24px Inter"
-          ctx.textAlign = "center"
-          ctx.fillText(currentPose.label, canvas.width / 2, canvas.height / 2)
-
-          const dataUrl = canvas.toDataURL("image/jpeg")
+          const dataUrl = canvas.toDataURL("image/jpeg", 0.9)
           const newCapture: Capture = {
             pose: currentPose.id,
             dataUrl,
@@ -102,8 +118,9 @@ export default function LivenessCheck() {
         setStatus("active")
       } else {
         setStatus("completed")
+        stopCamera()
       }
-    }, 500)
+    }, 300)
   }
 
   const downloadCapture = (capture: Capture) => {
@@ -114,10 +131,12 @@ export default function LivenessCheck() {
   }
 
   const resetCapture = () => {
+    stopCamera()
     setStatus("idle")
     setCaptures([])
     setCurrentPoseIndex(0)
     setProgress(0)
+    setDetectionStableCount(0)
   }
 
   return (
@@ -143,30 +162,36 @@ export default function LivenessCheck() {
               {/* Video/Canvas Container */}
               <div className="relative aspect-[4/3] bg-muted max-h-[calc(65vh-60px)]">
                 {/* Hidden canvas for capture */}
-                <canvas ref={canvasRef} width={640} height={480} className="hidden" />
+                <canvas ref={canvasRef} className="hidden" />
 
-                {/* Video placeholder */}
-                <div className="absolute inset-0 flex items-center justify-center">
-                  {status === "idle" ? (
+                {/* Video element */}
+                <video
+                  ref={videoRef}
+                  autoPlay
+                  playsInline
+                  muted
+                  className={`absolute inset-0 h-full w-full object-cover ${status === "idle" ? "hidden" : ""}`}
+                />
+
+                {/* Idle state */}
+                {status === "idle" && (
+                  <div className="absolute inset-0 flex items-center justify-center">
                     <div className="text-center">
                       <Camera className="mx-auto mb-2 h-12 w-12 md:h-16 md:w-16 text-muted-foreground/50" />
                       <p className="text-sm md:text-base text-muted-foreground">Caméra inactive</p>
                     </div>
-                  ) : (
-                    <div className="relative h-full w-full">
-                      {/* Simulated video feed */}
-                      <div className="absolute inset-0 bg-gradient-to-br from-muted to-muted/80" />
+                  </div>
+                )}
 
-                      {/* Face outline guide */}
-                      <div className="absolute inset-0 flex items-center justify-center">
-                        <div className="h-48 w-36 md:h-64 md:w-48 rounded-full border-4 border-dashed border-[#00B4D8] opacity-50" />
-                      </div>
+                {/* Face outline guide */}
+                {status === "active" && (
+                  <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                    <div className="h-48 w-36 md:h-64 md:w-48 rounded-full border-4 border-dashed border-[#00B4D8] opacity-50" />
+                  </div>
+                )}
 
-                      {/* Flash effect */}
-                      {showFlash && <div className="absolute inset-0 animate-pulse bg-white opacity-80" />}
-                    </div>
-                  )}
-                </div>
+                {/* Flash effect */}
+                {showFlash && <div className="absolute inset-0 animate-pulse bg-white opacity-80" />}
 
                 {/* Status Overlay */}
                 {status !== "idle" && (
