@@ -3,6 +3,13 @@
   "version": "0.1.0",
   "private": true,
   "type": "module",
+  "license": "MIT",
+  "author": "Malaury B",
+  "description": "Face liveness detection application using MediaPipe and React",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/MalauryB/face-recognition.git"
+  },
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
