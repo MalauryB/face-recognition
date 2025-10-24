@@ -10,7 +10,10 @@
       "Bash(npm uninstall:*)",
       "Bash(npm run test:coverage:*)",
       "Bash(rm:*)",
-      "Bash(npm run build:*)"
+      "Bash(npm run build:*)",
+      "Bash(GITHUB_PAGES=true npm run build:*)",
+      "Bash(set GITHUB_PAGES=true)",
+      "Bash(git add:*)"
     ],
     "deny": [],
     "ask": []

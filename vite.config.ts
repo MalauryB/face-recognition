@@ -10,5 +10,6 @@ export default defineConfig({
       '@': path.resolve(__dirname, './src'),
     },
   },
-  base: process.env.GITHUB_PAGES ? '/face-liveness-check/' : '/',
+  // Use '/face-recognition/' for GitHub Pages deployment
+  base: '/face-recognition/',
 })
