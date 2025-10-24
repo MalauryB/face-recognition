@@ -40,7 +40,7 @@ export function LivenessCheckPresenter({
   onDownloadCapture,
 }: LivenessCheckPresenterProps) {
   return (
-    <div className="h-screen flex flex-col px-4 py-4 md:py-6">
+    <div className="min-h-screen flex flex-col px-4 py-4 md:py-6">
       <div className="mx-auto w-full max-w-7xl flex-1 flex flex-col">
         {/* Header */}
         <div className="mb-4 text-center">
@@ -60,7 +60,7 @@ export function LivenessCheckPresenter({
         <div className="grid gap-4 lg:grid-cols-3 flex-1 min-h-0">
           {/* Main Video Area */}
           <div className="lg:col-span-2 flex flex-col min-h-0">
-            <div className="relative overflow-hidden rounded-2xl md:rounded-3xl border border-border bg-card w-full mx-auto flex flex-col max-h-[65vh]">
+            <div className="relative overflow-hidden rounded-2xl md:rounded-3xl border border-border bg-card w-full mx-auto flex flex-col max-h-[50vh] md:max-h-[65vh]">
               {/* Video Area with Render Props */}
               <LivenessVideoArea
                 videoRef={videoRef}
