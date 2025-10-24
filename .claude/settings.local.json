@@ -4,7 +4,11 @@
       "Bash(mkdir:*)",
       "Bash(xcopy:*)",
       "Bash(robocopy:*)",
-      "Bash(exit 0)"
+      "Bash(exit 0)",
+      "Bash(npm test:*)",
+      "Bash(npx vitest:*)",
+      "Bash(npm uninstall:*)",
+      "Bash(npm run test:coverage:*)"
     ],
     "deny": [],
     "ask": []

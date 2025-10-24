@@ -47,7 +47,7 @@ export function LivenessCaptureGallery({
         renderHeader(captures.length)
       ) : (
         <h3 className="mb-2 md:mb-3 text-base md:text-lg font-semibold text-foreground">
-          Photos capturées
+          Photos capturées ({captures.length})
         </h3>
       )}
 
@@ -56,13 +56,17 @@ export function LivenessCaptureGallery({
         {children ? (
           children(captureItems, onDownload)
         ) : (
-          // Default rendering with renderCapture
+          // Default rendering with renderCapture or fallback
           captureItems.map((itemData) =>
             renderCapture ? (
               <div key={itemData.capture.timestamp}>
                 {renderCapture(itemData, onDownload)}
               </div>
-            ) : null
+            ) : (
+              <div key={itemData.capture.timestamp} className="text-sm">
+                {itemData.poseInfo?.label || 'Photo'}
+              </div>
+            )
           )
         )}
       </div>

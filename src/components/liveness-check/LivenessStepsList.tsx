@@ -50,11 +50,15 @@ export function LivenessStepsList({
         {children ? (
           children(steps)
         ) : (
-          // Default rendering with renderStep
+          // Default rendering with renderStep or fallback
           steps.map((stepData) =>
             renderStep ? (
               <div key={stepData.pose.id}>{renderStep(stepData)}</div>
-            ) : null
+            ) : (
+              <div key={stepData.pose.id} className="text-sm">
+                {stepData.pose.label}
+              </div>
+            )
           )
         )}
       </div>
