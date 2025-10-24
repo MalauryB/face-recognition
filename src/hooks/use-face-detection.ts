@@ -99,6 +99,18 @@ export function useFaceDetection() {
   // Start camera and detection
   const startCamera = useCallback(async (video: HTMLVideoElement) => {
     try {
+      // Stop existing stream if any
+      if (video.srcObject) {
+        const existingStream = video.srcObject as MediaStream
+        existingStream.getTracks().forEach(track => track.stop())
+        video.srcObject = null
+      }
+
+      // Cancel any pending animation frames
+      if (animationFrameRef.current) {
+        cancelAnimationFrame(animationFrameRef.current)
+      }
+
       const stream = await navigator.mediaDevices.getUserMedia({
         video: {
           facingMode: 'user',
@@ -109,6 +121,11 @@ export function useFaceDetection() {
 
       video.srcObject = stream
       videoRef.current = video
+
+      // Wait for video to be ready before playing
+      await new Promise<void>((resolve) => {
+        video.onloadedmetadata = () => resolve()
+      })
 
       await video.play()
 

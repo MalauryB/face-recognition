@@ -8,21 +8,33 @@ interface UseCameraOptions {
 
 export function useCamera({ isActive, onError }: UseCameraOptions) {
   const videoRef = useRef<HTMLVideoElement>(null)
+  const isStartingRef = useRef(false)
   const { isReady, headOrientation, startCamera, stopCamera } = useFaceDetection()
 
   // Start camera when active
   useEffect(() => {
-    if (isActive && videoRef.current && isReady) {
-      startCamera(videoRef.current).catch((error) => {
+    if (!isActive) {
+      stopCamera()
+      return
+    }
+
+    if (!videoRef.current || !isReady || isStartingRef.current) {
+      return
+    }
+
+    isStartingRef.current = true
+
+    startCamera(videoRef.current)
+      .catch((error) => {
         console.error("Failed to start camera:", error)
         onError?.(error)
       })
-    }
+      .finally(() => {
+        isStartingRef.current = false
+      })
 
     return () => {
-      if (!isActive) {
-        stopCamera()
-      }
+      stopCamera()
     }
   }, [isActive, isReady, startCamera, stopCamera, onError])
 
