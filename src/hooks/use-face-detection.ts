@@ -118,6 +118,12 @@ export function useFaceDetection() {
           return
         }
 
+        // Check if video has valid dimensions before processing
+        if (videoRef.current.videoWidth === 0 || videoRef.current.videoHeight === 0) {
+          animationFrameRef.current = requestAnimationFrame(detectFace)
+          return
+        }
+
         try {
           const result = faceLandmarkerRef.current.detectForVideo(
             videoRef.current,

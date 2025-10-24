@@ -20,6 +20,13 @@ export function usePhotoCapture() {
             return
           }
 
+          // Check if video has valid dimensions
+          if (video.videoWidth === 0 || video.videoHeight === 0) {
+            setShowFlash(false)
+            reject(new Error('Video dimensions not ready'))
+            return
+          }
+
           try {
             // Set canvas size to match video
             canvas.width = video.videoWidth
