@@ -86,23 +86,6 @@ export function LivenessCheckPresenter({
                 )}
                 renderOverlay={(state) => (
                   <>
-                    {/* Large Head Direction Indicator - Bottom on mobile, Top on desktop */}
-                    {state.status === "active" && !state.isCompleted && (
-                      <div className="absolute bottom-4 md:top-4 left-1/2 -translate-x-1/2 pointer-events-none z-10">
-                        <div className="flex flex-col items-center gap-1.5 md:gap-2 bg-black/70 backdrop-blur-sm rounded-xl md:rounded-2xl px-3 py-2 md:px-6 md:py-4 shadow-2xl">
-                          <div className="animate-bounce">
-                            <HeadAvatar
-                              direction={currentPose.id}
-                              className="scale-100 md:scale-[2] drop-shadow-lg"
-                            />
-                          </div>
-                          <p className="text-white text-xs md:text-base font-semibold text-center whitespace-nowrap">
-                            Tournez la tête vers la {currentPose.label.toLowerCase()}
-                          </p>
-                        </div>
-                      </div>
-                    )}
-
                     {/* Status Overlay */}
                     {state.status !== "idle" && (
                       <div className="absolute left-2 top-2 md:left-4 md:top-4 rounded-full border border-border bg-card px-3 py-1.5 md:px-4 md:py-2">
@@ -186,20 +169,22 @@ export function LivenessCheckPresenter({
             </div>
 
             {/* Instructions Box - Below camera */}
-            {status === "active" && (
-              <div className="mt-3 md:mt-4 rounded-xl md:rounded-2xl bg-[#0ea5e9] p-2.5 md:p-4 max-w-xl mx-auto w-full">
-                <div className="flex items-center gap-2 md:gap-3">
-                  <HeadAvatar direction={currentPose.id} className="shrink-0 scale-75 md:scale-100" />
-                  <div className="flex h-8 w-8 md:h-10 md:w-10 shrink-0 items-center justify-center rounded-full bg-white/20">
-                    <span className="text-base md:text-lg font-bold text-white">
+            {status === "active" && !isCompleted && (
+              <div className="mt-3 md:mt-4 rounded-xl md:rounded-2xl bg-[#0ea5e9] p-3 md:p-5 max-w-xl mx-auto w-full shadow-lg">
+                <div className="flex items-center gap-3 md:gap-4">
+                  <div className="animate-bounce">
+                    <HeadAvatar direction={currentPose.id} className="shrink-0 scale-125 md:scale-150 drop-shadow-lg" />
+                  </div>
+                  <div className="flex h-10 w-10 md:h-12 md:w-12 shrink-0 items-center justify-center rounded-full bg-white/20">
+                    <span className="text-lg md:text-xl font-bold text-white">
                       {POSES.findIndex(p => p.id === currentPose.id) + 1}
                     </span>
                   </div>
                   <div className="min-w-0 flex-1">
-                    <p className="text-xs md:text-sm font-medium text-white/90">
+                    <p className="text-xs md:text-sm font-medium text-white/90 mb-0.5">
                       Étape {POSES.findIndex(p => p.id === currentPose.id) + 1}/3
                     </p>
-                    <p className="text-sm md:text-base font-semibold text-white truncate">{currentPose.instruction}</p>
+                    <p className="text-base md:text-lg font-bold text-white truncate">{currentPose.instruction}</p>
                   </div>
                 </div>
               </div>
