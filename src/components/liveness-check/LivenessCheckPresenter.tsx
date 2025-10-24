@@ -86,17 +86,17 @@ export function LivenessCheckPresenter({
                 )}
                 renderOverlay={(state) => (
                   <>
-                    {/* Large Head Direction Indicator - Center Top */}
+                    {/* Large Head Direction Indicator - Bottom on mobile, Top on desktop */}
                     {state.status === "active" && !state.isCompleted && (
-                      <div className="absolute top-4 left-1/2 -translate-x-1/2 pointer-events-none z-10">
-                        <div className="flex flex-col items-center gap-2 bg-black/70 backdrop-blur-sm rounded-2xl px-4 md:px-6 py-3 md:py-4 shadow-2xl">
+                      <div className="absolute bottom-4 md:top-4 left-1/2 -translate-x-1/2 pointer-events-none z-10">
+                        <div className="flex flex-col items-center gap-1.5 md:gap-2 bg-black/70 backdrop-blur-sm rounded-xl md:rounded-2xl px-3 py-2 md:px-6 md:py-4 shadow-2xl">
                           <div className="animate-bounce">
                             <HeadAvatar
                               direction={currentPose.id}
-                              className="scale-150 md:scale-[2] drop-shadow-lg"
+                              className="scale-100 md:scale-[2] drop-shadow-lg"
                             />
                           </div>
-                          <p className="text-white text-sm md:text-base font-semibold text-center whitespace-nowrap">
+                          <p className="text-white text-xs md:text-base font-semibold text-center whitespace-nowrap">
                             Tournez la tête vers la {currentPose.label.toLowerCase()}
                           </p>
                         </div>
