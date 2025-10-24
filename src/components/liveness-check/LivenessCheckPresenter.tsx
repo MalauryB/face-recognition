@@ -40,27 +40,31 @@ export function LivenessCheckPresenter({
   onDownloadCapture,
 }: LivenessCheckPresenterProps) {
   return (
-    <div className="min-h-screen flex flex-col px-4 py-4 md:py-6">
+    <div className="min-h-screen flex flex-col px-2 py-2 md:px-4 md:py-6">
       <div className="mx-auto w-full max-w-7xl flex-1 flex flex-col">
-        {/* Header */}
-        <div className="mb-4 text-center">
+        {/* Header - Compact on mobile when active */}
+        <div className={`text-center transition-all ${status === "active" ? "mb-2" : "mb-4"}`}>
           <img
             src={logoSvg}
             alt="Logo Olky"
-            className="h-12 md:h-16 mx-auto mb-3 md:mb-4"
+            className={`mx-auto ${status === "active" ? "h-8 mb-1" : "h-12 md:h-16 mb-3 md:mb-4"}`}
           />
-          <h1 className="mb-1 text-2xl md:text-3xl font-bold tracking-tight text-foreground text-balance">
-            Vérification d'identité
-          </h1>
-          <p className="text-sm md:text-base text-muted-foreground text-pretty">
-            Bougez lentement la tête pour capturer trois angles de votre visage.
-          </p>
+          {status === "idle" && (
+            <>
+              <h1 className="mb-1 text-2xl md:text-3xl font-bold tracking-tight text-foreground text-balance">
+                Vérification d'identité
+              </h1>
+              <p className="text-sm md:text-base text-muted-foreground text-pretty">
+                Bougez lentement la tête pour capturer trois angles de votre visage.
+              </p>
+            </>
+          )}
         </div>
 
         <div className="grid gap-4 lg:grid-cols-3 flex-1 min-h-0">
           {/* Main Video Area */}
           <div className="lg:col-span-2 flex flex-col min-h-0">
-            <div className="relative overflow-hidden rounded-2xl md:rounded-3xl border border-border bg-card w-full mx-auto flex flex-col max-h-[50vh] md:max-h-[65vh]">
+            <div className="relative overflow-hidden rounded-2xl md:rounded-3xl border border-border bg-card w-full mx-auto flex flex-col max-h-[45vh] md:max-h-[65vh]">
               {/* Video Area with Render Props */}
               <LivenessVideoArea
                 videoRef={videoRef}
@@ -170,21 +174,21 @@ export function LivenessCheckPresenter({
 
             {/* Instructions Box - Below camera */}
             {status === "active" && !isCompleted && (
-              <div className="mt-3 md:mt-4 rounded-xl md:rounded-2xl bg-[#0ea5e9] p-3 md:p-5 max-w-xl mx-auto w-full shadow-lg">
-                <div className="flex items-center gap-3 md:gap-4">
+              <div className="mt-2 md:mt-4 rounded-xl md:rounded-2xl bg-[#0ea5e9] p-2 md:p-5 max-w-xl mx-auto w-full shadow-lg">
+                <div className="flex items-center gap-2 md:gap-4">
                   <div className="animate-bounce">
-                    <HeadAvatar direction={currentPose.id} className="shrink-0 scale-125 md:scale-150 drop-shadow-lg" />
+                    <HeadAvatar direction={currentPose.id} className="shrink-0 scale-100 md:scale-150 drop-shadow-lg" />
                   </div>
-                  <div className="flex h-10 w-10 md:h-12 md:w-12 shrink-0 items-center justify-center rounded-full bg-white/20">
-                    <span className="text-lg md:text-xl font-bold text-white">
+                  <div className="flex h-8 w-8 md:h-12 md:w-12 shrink-0 items-center justify-center rounded-full bg-white/20">
+                    <span className="text-base md:text-xl font-bold text-white">
                       {POSES.findIndex(p => p.id === currentPose.id) + 1}
                     </span>
                   </div>
                   <div className="min-w-0 flex-1">
-                    <p className="text-xs md:text-sm font-medium text-white/90 mb-0.5">
+                    <p className="text-xs md:text-sm font-medium text-white/90">
                       Étape {POSES.findIndex(p => p.id === currentPose.id) + 1}/3
                     </p>
-                    <p className="text-base md:text-lg font-bold text-white truncate">{currentPose.instruction}</p>
+                    <p className="text-sm md:text-lg font-bold text-white truncate">{currentPose.instruction}</p>
                   </div>
                 </div>
               </div>
