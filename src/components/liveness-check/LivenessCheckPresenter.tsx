@@ -86,6 +86,23 @@ export function LivenessCheckPresenter({
                 )}
                 renderOverlay={(state) => (
                   <>
+                    {/* Large Head Direction Indicator - Center Top */}
+                    {state.status === "active" && (
+                      <div className="absolute top-4 left-1/2 -translate-x-1/2 pointer-events-none z-10">
+                        <div className="flex flex-col items-center gap-2 bg-black/70 backdrop-blur-sm rounded-2xl px-4 md:px-6 py-3 md:py-4 shadow-2xl">
+                          <div className="animate-bounce">
+                            <HeadAvatar
+                              direction={currentPose.id}
+                              className="scale-150 md:scale-[2] drop-shadow-lg"
+                            />
+                          </div>
+                          <p className="text-white text-sm md:text-base font-semibold text-center whitespace-nowrap">
+                            Tournez la tête vers la {currentPose.label.toLowerCase()}
+                          </p>
+                        </div>
+                      </div>
+                    )}
+
                     {/* Status Overlay */}
                     {state.status !== "idle" && (
                       <div className="absolute left-2 top-2 md:left-4 md:top-4 rounded-full border border-border bg-card px-3 py-1.5 md:px-4 md:py-2">
