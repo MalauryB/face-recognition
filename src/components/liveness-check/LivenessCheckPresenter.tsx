@@ -87,7 +87,7 @@ export function LivenessCheckPresenter({
                 renderOverlay={(state) => (
                   <>
                     {/* Large Head Direction Indicator - Center Top */}
-                    {state.status === "active" && (
+                    {state.status === "active" && !state.isCompleted && (
                       <div className="absolute top-4 left-1/2 -translate-x-1/2 pointer-events-none z-10">
                         <div className="flex flex-col items-center gap-2 bg-black/70 backdrop-blur-sm rounded-2xl px-4 md:px-6 py-3 md:py-4 shadow-2xl">
                           <div className="animate-bounce">
