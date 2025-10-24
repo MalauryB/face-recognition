@@ -4,27 +4,27 @@ Une application web de vérification d'identité par détection de vivacité fac
 
 [![Deploy to GitHub Pages](https://github.com/MalauryB/face-recognition/actions/workflows/deploy.yml/badge.svg)](https://github.com/MalauryB/face-recognition/actions/workflows/deploy.yml)
 
-## 🎯 Fonctionnalités
+## Fonctionnalités
 
-- ✅ **Détection de visage en temps réel** avec MediaPipe Face Landmarker
-- ✅ **Vérification de vivacité** : capture de 3 angles (gauche, centre, droite)
-- ✅ **Interface responsive** : fonctionne sur desktop et mobile
-- ✅ **Feedback visuel** : indicateurs de progression et d'orientation
-- ✅ **Export des captures** : téléchargement des photos capturées
-- ✅ **Tests unitaires** : 53 tests avec 100% de réussite
-- ✅ **Mode sombre/clair** : thème adaptatif
+- **Détection de visage en temps réel** avec MediaPipe Face Landmarker
+- **Vérification de vivacité** : capture de 3 angles (gauche, centre, droite)
+- **Interface responsive** : fonctionne sur desktop et mobile
+- **Feedback visuel** : indicateurs de progression et d'orientation
+- **Export des captures** : téléchargement des photos capturées
+- **Tests unitaires** : 53 tests avec 100% de réussite
+- **Mode sombre/clair** : thème adaptatif
 
-## 🚀 Démo en ligne
+## Démo en ligne
 
-👉 **[https://malauryb.github.io/face-recognition/](https://malauryb.github.io/face-recognition/)**
+**[https://malauryb.github.io/face-recognition/](https://malauryb.github.io/face-recognition/)**
 
-## 📋 Prérequis
+## Prérequis
 
 - **Node.js** >= 18.0.0
 - **npm** >= 9.0.0
 - **Navigateur moderne** supportant WebRTC (Chrome, Firefox, Safari, Edge)
 
-## 🛠️ Installation
+## Installation
 
 ### 1. Cloner le repository
 
@@ -39,7 +39,7 @@ cd face-recognition
 npm install
 ```
 
-## 🎮 Commandes disponibles
+## Commandes disponibles
 
 ### Développement
 
@@ -89,7 +89,7 @@ npm run test:ui
 npm run lint
 ```
 
-## 📁 Structure du projet
+## Structure du projet
 
 ```
 face-liveness-check/
@@ -133,7 +133,7 @@ face-liveness-check/
 └── package.json
 ```
 
-## 🧪 Tests
+## Tests
 
 Le projet utilise **Jest** et **React Testing Library** pour les tests unitaires.
 
@@ -142,11 +142,11 @@ Le projet utilise **Jest** et **React Testing Library** pour les tests unitaires
 - **53 tests** au total
 - **100% de réussite**
 - Composants testés :
-  - ✅ `use-photo-capture` (6 tests)
-  - ✅ `use-liveness-detection` (10 tests)
-  - ✅ `LivenessVideoArea` (16 tests)
-  - ✅ `LivenessStepsList` (10 tests)
-  - ✅ `LivenessCaptureGallery` (11 tests)
+  - `use-photo-capture` (6 tests)
+  - `use-liveness-detection` (10 tests)
+  - `LivenessVideoArea` (16 tests)
+  - `LivenessStepsList` (10 tests)
+  - `LivenessCaptureGallery` (11 tests)
 
 ### Lancer les tests
 
@@ -161,7 +161,7 @@ npm run test:coverage
 npm run test:ui
 ```
 
-## 🏗️ Architecture
+## Architecture
 
 ### Pattern Render Props
 
@@ -190,7 +190,7 @@ Le projet utilise le **pattern Render Props** pour une flexibilité maximale :
 - État local avec `useState` et `useRef`
 - Pas de state management global (Redux/Zustand) - non nécessaire pour cette app
 
-## 🎨 Technologies
+## Technologies
 
 - **React 18** - Framework UI
 - **TypeScript** - Typage statique
@@ -201,7 +201,7 @@ Le projet utilise le **pattern Render Props** pour une flexibilité maximale :
 - **Lucide React** - Icônes
 - **Jest + Testing Library** - Tests
 
-## 🌐 Déploiement
+## Déploiement
 
 ### GitHub Pages (automatique)
 
@@ -219,7 +219,7 @@ npm run build
 # sur votre hébergeur (Vercel, Netlify, etc.)
 ```
 
-## 🔒 Permissions requises
+## Permissions requises
 
 L'application nécessite l'autorisation d'accès à la caméra :
 
@@ -233,7 +233,7 @@ navigator.mediaDevices.getUserMedia({
 })
 ```
 
-## 🐛 Dépannage
+## Dépannage
 
 ### La caméra ne démarre pas
 
@@ -256,22 +256,12 @@ npm install
 npm run build
 ```
 
-## 📝 Licence
+## Licence
 
 Ce projet est sous licence MIT.
 
-## 👨‍💻 Auteur
+## Auteur
 
 **Malaury B**
 
 - GitHub: [@MalauryB](https://github.com/MalauryB)
-
-## 🙏 Remerciements
-
-- [MediaPipe](https://mediapipe.dev/) pour la détection de visage
-- [shadcn/ui](https://ui.shadcn.com/) pour les composants UI
-- [Lucide](https://lucide.dev/) pour les icônes
-
----
-
-**⭐ Si ce projet vous a été utile, n'hésitez pas à lui donner une étoile !**
