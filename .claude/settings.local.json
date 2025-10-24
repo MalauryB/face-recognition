@@ -13,7 +13,9 @@
       "Bash(npm run build:*)",
       "Bash(GITHUB_PAGES=true npm run build:*)",
       "Bash(set GITHUB_PAGES=true)",
-      "Bash(git add:*)"
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(git push)"
     ],
     "deny": [],
     "ask": []

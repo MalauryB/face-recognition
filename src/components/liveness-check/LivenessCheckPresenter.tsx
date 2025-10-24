@@ -5,6 +5,7 @@ import { Capture, CaptureStatus, POSES, PoseConfig } from "@/types/liveness"
 import { LivenessVideoArea } from "./LivenessVideoArea"
 import { LivenessStepsList } from "./LivenessStepsList"
 import { LivenessCaptureGallery } from "./LivenessCaptureGallery"
+import logoSvg from "/logo.svg"
 
 interface LivenessCheckPresenterProps {
   // State
@@ -44,7 +45,7 @@ export function LivenessCheckPresenter({
         {/* Header */}
         <div className="mb-4 text-center">
           <img
-            src="/logo.svg"
+            src={logoSvg}
             alt="Logo Olky"
             className="h-12 md:h-16 mx-auto mb-3 md:mb-4"
           />
