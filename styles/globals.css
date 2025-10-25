@@ -123,3 +123,68 @@
     @apply bg-background text-foreground;
   }
 }
+
+@layer utilities {
+  @keyframes captureRipple {
+    0% {
+      transform: scale(0);
+      opacity: 0.8;
+    }
+    50% {
+      opacity: 0.4;
+    }
+    100% {
+      transform: scale(2.5);
+      opacity: 0;
+    }
+  }
+
+  @keyframes captureBorder {
+    0% {
+      opacity: 0;
+      border-width: 0px;
+    }
+    20% {
+      opacity: 1;
+      border-width: 8px;
+    }
+    80% {
+      opacity: 1;
+      border-width: 8px;
+    }
+    100% {
+      opacity: 0;
+      border-width: 0px;
+    }
+  }
+
+  @keyframes captureCheckmark {
+    0% {
+      transform: scale(0) rotate(0deg);
+      opacity: 0;
+    }
+    50% {
+      transform: scale(1.2) rotate(10deg);
+      opacity: 1;
+    }
+    70% {
+      transform: scale(1) rotate(-5deg);
+    }
+    100% {
+      transform: scale(1) rotate(0deg);
+      opacity: 1;
+    }
+  }
+
+  .animate-capture-ripple {
+    animation: captureRipple 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .animate-capture-border {
+    animation: captureBorder 0.6s ease-in-out;
+  }
+
+  .animate-capture-checkmark {
+    animation: captureCheckmark 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+}

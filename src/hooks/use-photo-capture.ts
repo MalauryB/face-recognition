@@ -53,7 +53,7 @@ export function usePhotoCapture() {
             setShowFlash(false)
             reject(error)
           }
-        }, 300)
+        }, 600)
       })
     },
     []

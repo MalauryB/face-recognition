@@ -51,9 +51,24 @@ export function LivenessVideoArea({
       {/* Active state - Render Prop */}
       {state.status === "active" && renderActive && renderActive()}
 
-      {/* Flash effect */}
+      {/* Capture effect */}
       {state.showFlash && (
-        <div className="absolute inset-0 animate-pulse bg-white opacity-80" />
+        <>
+          {/* Ripple effect */}
+          <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+            <div className="w-32 h-32 md:w-48 md:h-48 rounded-full bg-[#0ea5e9]/30 animate-capture-ripple" />
+          </div>
+          {/* Border flash */}
+          <div className="absolute inset-0 border-[#0ea5e9] rounded-2xl md:rounded-3xl animate-capture-border pointer-events-none" />
+          {/* Success checkmark */}
+          <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+            <div className="w-16 h-16 md:w-24 md:h-24 rounded-full bg-[#0ea5e9] flex items-center justify-center animate-capture-checkmark">
+              <svg className="w-8 h-8 md:w-12 md:h-12 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M5 13l4 4L19 7" />
+              </svg>
+            </div>
+          </div>
+        </>
       )}
 
       {/* Custom overlays - Render Prop */}

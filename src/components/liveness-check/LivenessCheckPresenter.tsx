@@ -174,17 +174,17 @@ export function LivenessCheckPresenter({
 
             {/* Instructions Box - Below camera */}
             {status === "active" && !isCompleted && (
-              <div className="mt-2 md:mt-4 rounded-xl md:rounded-2xl bg-[#0ea5e9] p-2 md:p-5 max-w-xl mx-auto w-full shadow-lg">
+              <div className="mt-2 md:mt-4 rounded-xl md:rounded-2xl bg-[#0ea5e9] p-2 md:p-5 max-w-xl mx-auto w-full shadow-lg transition-all duration-500">
                 <div className="flex items-center gap-2 md:gap-4">
-                  <div className="animate-bounce">
+                  <div className="animate-bounce transition-transform duration-500" key={currentPose.id}>
                     <HeadAvatar direction={currentPose.id} className="shrink-0 scale-100 md:scale-150 drop-shadow-lg" />
                   </div>
-                  <div className="flex h-8 w-8 md:h-12 md:w-12 shrink-0 items-center justify-center rounded-full bg-white/20">
+                  <div className="flex h-8 w-8 md:h-12 md:w-12 shrink-0 items-center justify-center rounded-full bg-white/20 transition-all duration-300">
                     <span className="text-base md:text-xl font-bold text-white">
                       {POSES.findIndex(p => p.id === currentPose.id) + 1}
                     </span>
                   </div>
-                  <div className="min-w-0 flex-1">
+                  <div className="min-w-0 flex-1 transition-all duration-300">
                     <p className="text-xs md:text-sm font-medium text-white/90">
                       Étape {POSES.findIndex(p => p.id === currentPose.id) + 1}/3
                     </p>

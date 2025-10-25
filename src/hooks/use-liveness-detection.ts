@@ -64,6 +64,8 @@ export function useLivenessDetection({
 
       // Move to next pose or complete
       if (currentPoseIndex < POSES.length - 1) {
+        // Add a brief delay before transitioning to next pose
+        await new Promise(resolve => setTimeout(resolve, 800))
         setCurrentPoseIndex((prev) => prev + 1)
         setStatus('active')
       }
