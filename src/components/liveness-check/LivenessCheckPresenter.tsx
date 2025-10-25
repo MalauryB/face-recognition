@@ -64,7 +64,7 @@ export function LivenessCheckPresenter({
         <div className="grid gap-4 lg:grid-cols-3 flex-1 min-h-0">
           {/* Main Video Area */}
           <div className="lg:col-span-2 flex flex-col min-h-0">
-            <div className={`relative overflow-hidden rounded-2xl md:rounded-3xl border border-border bg-card w-full mx-auto flex flex-col transition-all duration-500 ease-in-out ${status === "idle" ? "h-[68vh]" : "h-[75vh]"} md:max-h-[65vh]`}>
+            <div className={`relative overflow-hidden rounded-2xl md:rounded-3xl border border-border bg-card w-full mx-auto flex flex-col transition-all duration-500 ease-in-out ${status === "idle" ? "h-[68vh]" : "h-[75vh]"} md:max-h-[55vh]`}>
               {/* Video Area with Render Props */}
               <LivenessVideoArea
                 videoRef={videoRef}
