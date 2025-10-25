@@ -64,7 +64,7 @@ export function LivenessCheckPresenter({
         <div className="grid gap-4 lg:grid-cols-3 flex-1 min-h-0">
           {/* Main Video Area */}
           <div className="lg:col-span-2 flex flex-col min-h-0">
-            <div className={`relative overflow-hidden rounded-2xl md:rounded-3xl border border-border bg-card w-full mx-auto flex flex-col ${status === "idle" ? "h-[68vh]" : "h-[75vh]"} md:max-h-[65vh]`}>
+            <div className={`relative overflow-hidden rounded-2xl md:rounded-3xl border border-border bg-card w-full mx-auto flex flex-col transition-all duration-500 ease-in-out ${status === "idle" ? "h-[68vh]" : "h-[75vh]"} md:max-h-[65vh]`}>
               {/* Video Area with Render Props */}
               <LivenessVideoArea
                 videoRef={videoRef}
@@ -138,11 +138,11 @@ export function LivenessCheckPresenter({
                   </>
                 )}
                 renderCompletion={() => (
-                  <div className="absolute inset-0 flex items-center justify-center bg-card/95 backdrop-blur-sm">
-                    <div className="text-center px-4">
-                      <CheckCircle2 className="mx-auto mb-2 md:mb-4 h-12 w-12 md:h-16 md:w-16 text-green-500" />
-                      <h3 className="mb-1 md:mb-2 text-lg md:text-2xl font-bold text-foreground">Vérification terminée !</h3>
-                      <p className="text-sm md:text-base text-muted-foreground">Toutes les photos ont été capturées.</p>
+                  <div className="absolute inset-0 flex items-center justify-center bg-card/95 backdrop-blur-sm animate-in fade-in duration-500">
+                    <div className="text-center px-4 animate-in zoom-in-95 duration-700 slide-in-from-bottom-4">
+                      <CheckCircle2 className="mx-auto mb-2 md:mb-4 h-12 w-12 md:h-16 md:w-16 text-green-500 animate-in zoom-in duration-500" />
+                      <h3 className="mb-1 md:mb-2 text-lg md:text-2xl font-bold text-foreground animate-in fade-in slide-in-from-bottom-2 duration-500 delay-200">Vérification terminée !</h3>
+                      <p className="text-sm md:text-base text-muted-foreground animate-in fade-in slide-in-from-bottom-2 duration-500 delay-300">Toutes les photos ont été capturées.</p>
                     </div>
                   </div>
                 )}
@@ -153,7 +153,7 @@ export function LivenessCheckPresenter({
                 {status === "idle" && (
                   <Button
                     onClick={onStartCapture}
-                    className="w-full rounded-full bg-[#0ea5e9] text-sm md:text-base font-semibold text-white hover:bg-[#0284c7] dark:bg-[#38bdf8] dark:hover:bg-[#0ea5e9]"
+                    className="w-full rounded-full bg-[#0ea5e9] text-sm md:text-base font-semibold text-white hover:bg-[#0284c7] dark:bg-[#38bdf8] dark:hover:bg-[#0ea5e9] animate-in fade-in slide-in-from-bottom-2 duration-300"
                     size="default"
                   >
                     <Camera className="mr-2 h-4 w-4 md:h-5 md:w-5" />
@@ -163,7 +163,7 @@ export function LivenessCheckPresenter({
                 {isCompleted && (
                   <Button
                     onClick={onResetCapture}
-                    className="w-full rounded-full border-2 border-[#0ea5e9] bg-card text-sm md:text-base font-semibold text-[#0ea5e9] hover:bg-muted dark:border-[#38bdf8] dark:text-[#38bdf8]"
+                    className="w-full rounded-full border-2 border-[#0ea5e9] bg-card text-sm md:text-base font-semibold text-[#0ea5e9] hover:bg-muted dark:border-[#38bdf8] dark:text-[#38bdf8] animate-in fade-in slide-in-from-bottom-2 duration-500 delay-400"
                     size="default"
                   >
                     Recommencer
