@@ -85,7 +85,27 @@ export function LivenessCheckPresenter({
                 )}
                 renderActive={() => (
                   <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-                    <div className="h-48 w-36 md:h-64 md:w-48 rounded-full border-4 border-dashed border-[#00B4D8] opacity-50" />
+                    {currentPose.id === "left" && (
+                      <img
+                        src="/face-recognition/left-face.svg"
+                        alt="Tournez la tête vers la gauche"
+                        className="h-64 w-64 md:h-80 md:w-80 opacity-60 transition-all duration-500"
+                      />
+                    )}
+                    {currentPose.id === "center" && (
+                      <img
+                        src="/face-recognition/face.svg"
+                        alt="Regardez droit devant"
+                        className="h-56 w-56 md:h-72 md:w-72 opacity-60 transition-all duration-500"
+                      />
+                    )}
+                    {currentPose.id === "right" && (
+                      <img
+                        src="/face-recognition/right-face.svg"
+                        alt="Tournez la tête vers la droite"
+                        className="h-64 w-64 md:h-80 md:w-80 opacity-60 transition-all duration-500 translate-x-6"
+                      />
+                    )}
                   </div>
                 )}
                 renderOverlay={(state) => (
