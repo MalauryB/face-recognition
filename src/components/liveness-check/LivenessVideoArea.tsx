@@ -30,7 +30,7 @@ export function LivenessVideoArea({
   children,
 }: LivenessVideoAreaProps) {
   return (
-    <div className="relative aspect-[4/3] bg-muted max-h-[calc(65vh-60px)]">
+    <div className="relative md:aspect-[4/3] bg-muted h-full max-h-full">
       {/* Hidden canvas for capture */}
       <canvas ref={canvasRef} className="hidden" />
 
