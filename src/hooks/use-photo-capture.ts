@@ -37,8 +37,15 @@ export function usePhotoCapture() {
               throw new Error('Cannot get canvas context')
             }
 
+            // Flip horizontally to match the unmirrored video display
+            ctx.translate(canvas.width, 0)
+            ctx.scale(-1, 1)
+
             // Draw video frame to canvas
             ctx.drawImage(video, 0, 0, canvas.width, canvas.height)
+
+            // Reset transformation
+            ctx.setTransform(1, 0, 0, 1, 0, 0)
 
             const dataUrl = canvas.toDataURL('image/jpeg', 0.9)
             const newCapture: Capture = {

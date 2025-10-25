@@ -40,7 +40,7 @@ export function LivenessVideoArea({
         autoPlay
         playsInline
         muted
-        className={`absolute inset-0 h-full w-full object-cover ${
+        className={`absolute inset-0 h-full w-full object-cover scale-x-[-1] ${
           state.status === "idle" ? "hidden" : ""
         }`}
       />

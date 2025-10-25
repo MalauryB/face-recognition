@@ -87,10 +87,12 @@ export function useFaceDetection() {
     const LEFT_THRESHOLD = -0.15
     const RIGHT_THRESHOLD = 0.15
 
+    // Invert detection to match the unmirrored video display
+    // When user turns their head to the right on screen, MediaPipe detects left in raw feed
     if (normalizedOffset < LEFT_THRESHOLD) {
-      return 'left'
+      return 'right' // User's head is to the right on screen
     } else if (normalizedOffset > RIGHT_THRESHOLD) {
-      return 'right'
+      return 'left' // User's head is to the left on screen
     } else {
       return 'center'
     }
