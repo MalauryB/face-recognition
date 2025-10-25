@@ -127,8 +127,14 @@ describe('LivenessVideoArea', () => {
       />
     )
 
-    const flash = container.querySelector('.animate-pulse.bg-white')
-    expect(flash).toBeInTheDocument()
+    // Check for the new capture effect elements
+    const ripple = container.querySelector('.animate-capture-ripple')
+    const border = container.querySelector('.animate-capture-border')
+    const checkmark = container.querySelector('.animate-capture-checkmark')
+
+    expect(ripple).toBeInTheDocument()
+    expect(border).toBeInTheDocument()
+    expect(checkmark).toBeInTheDocument()
   })
 
   it('should not show flash effect when showFlash is false', () => {

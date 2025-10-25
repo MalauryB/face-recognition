@@ -45,9 +45,9 @@ describe('usePhotoCapture', () => {
     // Flash should be visible
     expect(result.current.showFlash).toBe(true)
 
-    // Advance timers for flash animation
+    // Advance timers for flash animation (now 600ms)
     await act(async () => {
-      jest.advanceTimersByTime(300)
+      jest.advanceTimersByTime(600)
     })
 
     const capture = await capturePromise!
@@ -74,12 +74,12 @@ describe('usePhotoCapture', () => {
     expect(result.current.showFlash).toBe(true)
 
     await act(async () => {
-      jest.advanceTimersByTime(300)
+      jest.advanceTimersByTime(600)
     })
 
     // Flash timer completes
     await act(async () => {
-      jest.advanceTimersByTime(200)
+      jest.advanceTimersByTime(100)
     })
 
     expect(result.current.showFlash).toBe(false)
@@ -133,7 +133,7 @@ describe('usePhotoCapture', () => {
       })
 
       await act(async () => {
-        jest.advanceTimersByTime(500)
+        jest.advanceTimersByTime(600)
       })
 
       captures.push(await promise!)
