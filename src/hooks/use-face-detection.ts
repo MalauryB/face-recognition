@@ -84,8 +84,9 @@ export function useFaceDetection() {
     const normalizedOffset = noseOffset / faceWidth
 
     // Thresholds for head orientation
-    const LEFT_THRESHOLD = -0.15
-    const RIGHT_THRESHOLD = 0.15
+    // Wider center zone for easier detection when looking straight
+    const LEFT_THRESHOLD = -0.25
+    const RIGHT_THRESHOLD = 0.25
 
     // Invert detection to match the unmirrored video display
     // When user turns their head to the right on screen, MediaPipe detects left in raw feed
